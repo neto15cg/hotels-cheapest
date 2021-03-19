@@ -44,6 +44,7 @@ func GetCheapestHotel(reservationDates []time.Time, isRegular bool) string  {
 		}
 		if hotelResume.totalPrice < hotelCheapest.totalPrice {
 			hotelCheapest = hotelResume
+			continue
 		} 
 		if hotelResume.totalPrice == hotelCheapest.totalPrice && hotel.stars > hotelCheapest.stars {
 			hotelCheapest = hotelResume	
