@@ -1,0 +1,14 @@
+version: '3.6'
+services:
+  go_tw:
+    build: .
+    ports:
+      - 8081:8081
+    volumes:
+      - .:/go/src
+    networks:
+      - eliezer
+networks:
+  eliezer:
+    name: eliezer_eliezer
+    driver: bridge
