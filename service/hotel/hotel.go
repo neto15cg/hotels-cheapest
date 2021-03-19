@@ -1,6 +1,7 @@
 package hotel
 
 import (
+	dateUtils "go-tw/utils/date"
 	"time"
 )
 
@@ -35,7 +36,7 @@ func GetCheapestHotel(reservationDates []time.Time, isRegular bool) string  {
 	var hotelCheapest HotelPricesResumes
 
 	for index, hotel := range HotelList {
-		price := getHotelPrice(reservationDates, hotel.regularPriceWeek, hotel.regularPriceWeekend, hotel.fidelityPriceWeek, hotel.fidelityPriceWeekend, isRegular)
+		price := getHotelPrice(reservationDates, &hotel, isRegular)
 		hotelResume := HotelPricesResumes{hotel.name, price, hotel.stars}
 
 		if index == 0 {
@@ -54,35 +55,26 @@ func GetCheapestHotel(reservationDates []time.Time, isRegular bool) string  {
 }
 
 
-func getHotelPrice(reservationDates []time.Time, regularPriceWeek, regularPriceWeekend, fidelityPriceWeek, fidelityPriceWeekend float64, isRegular bool) float64 {
+func getHotelPrice(reservationDates []time.Time, hotel *Hotel, isRegular bool) float64 {
 	var totalPrice float64 = 0
 	for _, date := range reservationDates {
-		dayOfWeek := int(date.Weekday())
-		isWeekendPrice := getIsWeekendPrice(dayOfWeek);
-		price := getWeekPriceOrWeekendPrice(regularPriceWeek, regularPriceWeekend, fidelityPriceWeek, fidelityPriceWeekend, isRegular, isWeekendPrice)
+		isWeekendPrice := dateUtils.GetIsWeekendOrWeekeDay(&date);
+		price := getWeekPriceOrWeekendPrice(hotel, isRegular, isWeekendPrice)
 		totalPrice = price + totalPrice		
 	}
 	return totalPrice
 }
 
 
-func getWeekPriceOrWeekendPrice(regularPriceWeek, regularPriceWeekend, fidelityPriceWeek, fidelityPriceWeekend float64, isRegular, isWeekendPrice bool) float64 {
+func getWeekPriceOrWeekendPrice(hotel *Hotel, isRegular, isWeekendPrice bool) float64 {
 	if isRegular && isWeekendPrice {
-		return regularPriceWeekend
+		return hotel.regularPriceWeekend
 	}
 	if isRegular && !isWeekendPrice {
-		return regularPriceWeek
+		return hotel.regularPriceWeek
 	}
 	if isWeekendPrice {
-		return fidelityPriceWeekend
+		return hotel.fidelityPriceWeekend
 	}
-	return fidelityPriceWeek
-
-}
-
-func getIsWeekendPrice(dayOfWeek int) bool {
-	if dayOfWeek == 0 || dayOfWeek == 6 {
-		return true 
-	}
-	return false
+	return hotel.fidelityPriceWeek
 }
