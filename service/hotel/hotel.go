@@ -19,7 +19,7 @@ type Hotel struct {
 	stars				 int
 }
 
-type HotelPrices struct {
+type HotelPricesResumes struct {
 	name 	   string
 	totalPrice float64
 	stars int
@@ -31,23 +31,22 @@ var HotelList []Hotel = []Hotel{
 	{MAR_ATLANTICO, 220, 100, 150, 40, 5},
 }
 
-func GetMoreCheapHotel(reservationDates []time.Time, isRegular bool) string  {
-	var hotelCheapest HotelPrices
+func GetCheapestHotel(reservationDates []time.Time, isRegular bool) string  {
+	var hotelCheapest HotelPricesResumes
 
-	for i, h := range HotelList {
-		price := getHotelPrice(reservationDates, h.regularPriceWeek, h.regularPriceWeekend, h.fidelityPriceWeek, h.fidelityPriceWeekend, isRegular)
-		hotelResume := HotelPrices{h.name, price, h.stars}
+	for i, hotel := range HotelList {
+		price := getHotelPrice(reservationDates, hotel.regularPriceWeek, hotel.regularPriceWeekend, hotel.fidelityPriceWeek, hotel.fidelityPriceWeekend, isRegular)
+		hotelResume := HotelPricesResumes{hotel.name, price, hotel.stars}
 
 		if i == 0 {
 			hotelCheapest = hotelResume
-		} else {
-			if hotelResume.totalPrice < hotelCheapest.totalPrice {
-				hotelCheapest = hotelResume
-			}else {
-				if hotelResume.totalPrice == hotelCheapest.totalPrice && h.stars > hotelCheapest.stars {
-					hotelCheapest = hotelResume
-				}
-			}
+			continue
+		}
+		if hotelResume.totalPrice < hotelCheapest.totalPrice {
+			hotelCheapest = hotelResume
+		} 
+		if hotelResume.totalPrice == hotelCheapest.totalPrice && hotel.stars > hotelCheapest.stars {
+			hotelCheapest = hotelResume	
 		}
 	}
 	return hotelCheapest.name
