@@ -14,7 +14,7 @@ func main() {
 	secondDay, _ := carbon.CreateFromDate(2020, time.March, 17, "America/Sao_Paulo")
 	thirdDay, _ := carbon.CreateFromDate(2020, time.March, 18, "America/Sao_Paulo")
 	reservationDates := []time.Time{firstDay.Time,secondDay.Time,  thirdDay.Time}
-	hotelCheapest := hotel.GetMoreCheapHotel(reservationDates, true)
+	hotelCheapest := hotel.GetCheapestHotel(reservationDates, true)
 
 	fmt.Println(hotelCheapest)
 }

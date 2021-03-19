@@ -34,11 +34,11 @@ var HotelList []Hotel = []Hotel{
 func GetCheapestHotel(reservationDates []time.Time, isRegular bool) string  {
 	var hotelCheapest HotelPricesResumes
 
-	for i, hotel := range HotelList {
+	for index, hotel := range HotelList {
 		price := getHotelPrice(reservationDates, hotel.regularPriceWeek, hotel.regularPriceWeekend, hotel.fidelityPriceWeek, hotel.fidelityPriceWeekend, isRegular)
 		hotelResume := HotelPricesResumes{hotel.name, price, hotel.stars}
 
-		if i == 0 {
+		if index == 0 {
 			hotelCheapest = hotelResume
 			continue
 		}
