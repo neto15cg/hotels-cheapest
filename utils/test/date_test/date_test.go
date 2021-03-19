@@ -17,7 +17,7 @@ func TestShouldVerifyWeekDayIfPassADateOfWeek (t *testing.T) {
 }
 
 
-func TestShouldVerifyWeekDayIfPassADateOfWeekend (t *testing.T) {
+func TestShouldVerifyWeekendDayIfPassADateOfWeekend (t *testing.T) {
 	firstDay, _ := carbon.CreateFromDate(2021, time.March, 14, "America/Sao_Paulo")
 	isWeekendDay := dateUtils.GetIsWeekendOrWeekeDay(&firstDay.Time)
 	assert.Equal(t, true, isWeekendDay)
