@@ -10,8 +10,8 @@ docker-compose exec go_tw bash
 | Mar Atlântico     | 5        | R$ 220,00        | R$ 100,00        | R$ 150,00    | R$ 40,00        |
 
 
-cases:
+# Cases:
 
-1 - Regular - 16Mar2020, 17Mar2020, 18Mar2020: Parque das flores;
-2 - Regular - 20MAR2020, 21Mar2020, 22Mar2020: Jardim Botânico;
-3 - Fidelidade - 26MAR2020, 27MAR2020, 28MAR2020: Mar Atlântico
+- Regular - 16Mar2020, 17Mar2020, 18Mar2020: Parque das flores;
+- Regular - 20MAR2020, 21Mar2020, 22Mar2020: Jardim Botânico;
+- Fidelidade - 26MAR2020, 27MAR2020, 28MAR2020: Mar Atlântico
