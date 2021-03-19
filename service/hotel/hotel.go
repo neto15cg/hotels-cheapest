@@ -58,15 +58,16 @@ func GetCheapestHotel(reservationDates []time.Time, isRegular bool) string  {
 func GetTotalHotelPrice(reservationDates []time.Time, hotel *Hotel, isRegular bool) float64 {
 	var totalPrice float64 = 0
 	for _, date := range reservationDates {
-		isWeekendPrice := dateUtils.GetIsWeekendOrWeekeDay(&date);
-		price := GetHotelWeekOrWeekendPrice(hotel, isRegular, isWeekendPrice)
+		price := GetHotelPriceByDate(hotel, date, isRegular)
 		totalPrice = price + totalPrice		
 	}
 	return totalPrice
 }
 
 
-func GetHotelWeekOrWeekendPrice(hotel *Hotel, isRegular, isWeekendPrice bool) float64 {
+func GetHotelPriceByDate(hotel *Hotel, date time.Time, isRegular bool) float64 {
+	isWeekendPrice := dateUtils.GetIsWeekendOrWeekeDay(&date);
+
 	if isRegular && isWeekendPrice {
 		return hotel.regularPriceWeekend
 	}
